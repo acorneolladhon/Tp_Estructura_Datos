@@ -10,7 +10,7 @@ print("Hola ")
 #HOLA
 
 
-#que onda
+#que ondtdhdthdtha
 
 <<<<<<< HEAD
 print("hola soy jose")
