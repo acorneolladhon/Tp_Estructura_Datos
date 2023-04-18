@@ -14,6 +14,9 @@ class Balneario():
         sombris=[[Sombrilla() for i in range(5)] for i in range(3)]
         self.m_sombrillas=np.array(sombris)
     
+    def cargar_empleado(self):
+        pass
+
     def registrar_cliente():
         pass
     #acá podemos pedirle los datos al cliente que quiere reservar, preguntarle el tiempo y registrarlo en la lista de clientes (?)
