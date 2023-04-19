@@ -16,31 +16,6 @@ class Balneario():
         self.m_carpas=np.array(carpas)
         sombris=[[Sombrilla() for i in range(5)] for i in range(3)]
         self.m_sombrillas=np.array(sombris)
-
-    def validar_contraseña(self):
-        pass
-    #también podemos hacer un archivo csv con usuarios y contraseñas
-    #en el diccionario de empleados, podemos guardar a cada empleado con su contraseña en la KEY (y para buscarlo, lo hacemos a través de la función)
-
-    def leer_archivos(self, info_emps, info_matrices):
-        pass
-    #con esta función, al iniciar el programa desde el main, buscamos toda la información del balneario en los archivos que llamamos
-
-    def cargar_archivos(self, info_emps, info_matrices):
-        pass
-    #con esta función, al cerrar el programa, guardamos toda la info que recolectamos durante esa utilización del programa 
-
-class Reserva():
-    def __init__(self, num_reserva, tiempo_estadia, tipo_reserva):
-        self.numreserva=num_reserva
-        self.tiempo_estadia=tiempo_estadia #en días
-        self.precio=0  # el precio lo calcula el empleado al crear la reserva
-        self.tipo_reserva=tipo_reserva
-
-class Empleado():
-    def __init__(self, codemp, dni):
-        self.codemp=codemp
-
     
     def registrar_cliente():
         pass
@@ -68,6 +43,34 @@ class Empleado():
         pass
     #visualice en pantalla la matriz del balneario
 
+    def cargar_empleado(self):
+        pass
+    #esta funcion la podemos crear por las dudas para que el empleado se cree y se cargue a la lista por si nos lo piden en el parcial
+
+    def validar_contraseña(self):
+        pass
+    #podemos hacer un archivo csv con usuarios y contraseñas
+
+    def leer_archivos(self, info_emps, info_matrices):
+        pass
+    #con esta función, al iniciar el programa desde el main, buscamos toda la información del balneario en los archivos que llamamos y tambien en el archivo de clientes y de empleados
+
+    def cargar_archivos(self, info_emps, info_matrices):
+        pass
+    #con esta función, al cerrar el programa, guardamos toda la info que recolectamos durante esa utilización del programa 
+
+class Reserva():
+    def __init__(self, num_reserva, tiempo_estadia, tipo_reserva):
+        self.numreserva=num_reserva
+        self.tiempo_estadia=tiempo_estadia #en días
+        self.precio=0  # el precio lo calcula el empleado al crear la reserva
+        self.tipo_reserva=tipo_reserva
+
+class Empleado():
+    def __init__(self, codemp, dni):
+        self.codemp=codemp
+
     
-#cada vez 
-#entro con mi usuario --> una
+    
+
+    
