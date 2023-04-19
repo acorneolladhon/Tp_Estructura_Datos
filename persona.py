@@ -4,7 +4,7 @@ class Persona():
             if type(dni)!=int or len(str(dni))!=8 or not(str(dni).isdigit()) and dni:
                 raise ValueError("El DNI no cumple con el formato requerido. La persona no puede ser creada.")
             if sexo!="M" and sexo!="F":
-                raise ValueError("El sexo no cumple con el formato requerido, la persona no fue registrada.")
+                raise ValueError("El sexo no cumple con el formato requerido. La persona no fue registrada.")
             self.nombre=nombre
             self.dni=dni
             self.sexo=sexo
