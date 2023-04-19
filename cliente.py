@@ -1,4 +1,5 @@
 from persona import Persona
+
 class Cliente(Persona):
     def __init__(self, nombre, dni, sexo, tel, num_tarjeta):
         try:

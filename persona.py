@@ -11,8 +11,8 @@ class Persona():
         except ValueError as e:
             print("Error!", e)
     def __str__(self):
-        return "Mi nombre es {} y mi DNI es {}".format(self.nombre, self.dni)
+        return ("Mi nombre es {} y mi DNI es {}".format(self.nombre, self.dni))
     
 
-if __name__=="__main__":
+if __name__ =="__main__":
     p=Persona("josefina geoghegan", 23454532,"M")
