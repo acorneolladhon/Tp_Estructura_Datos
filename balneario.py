@@ -7,9 +7,7 @@ from persona import Persona
 from cliente import Cliente
 from datetime import datetime
 
-
 class Balneario():
-
     def __init__(self, nombre):         
         self.nombre=nombre
         self.dicemp=dict()
@@ -33,7 +31,7 @@ class Balneario():
     #con esta función, al cerrar el programa, guardamos toda la info que recolectamos durante esa utilización del programa 
 
     #FUNCIÓN PARA CARGAR UN EMPLEADO A LA LISTA DE EMPLEADOS Y CREARLO
-    #HABRÍA QUE VALIDAR LA INFORMACIÓN INGRESADA DESDE LA CLASE EMPLEADO Y PERSONA
+    #HAY QUE VALIDAR LA INFORMACIÓN INGRESADA DESDE LA CLASE EMPLEADO Y PERSONA
     def cargar_empleado(self, nom_cargado, dni_cargado, sexo_cargado):
         try:
             if dni_cargado not in self.dicemp.keys():    
@@ -74,24 +72,18 @@ class Balneario():
     #FUNCIÓN PARA IMPRIMIR LA MATRIZ Y VER LAS OPCIONES SEGÚN CUÁL ESTÁ OCUPADA Y CUÁL NO
     #DICE CUÁNTOS DÍAS LE QUEDA A CADA UNA
     #LO DE S Y C SE PODRÍA HACER CON UN MAP Y FILTER EN MENOS RENGLONES
-    def ver_matriz(self, tipo):
-        if tipo.lower()=="c":
-            for i in self.m_carpas:
-                if i==None:
+    def ver_matriz(self, tipo_reserva):
+        matriz_correcta=lambda x: self.m_carpas if x=="C" else self.m_sombrillas
+        matriz=matriz_correcta(tipo_reserva)
+        for i in matriz:
+                if i.estado==None:
                     print(0)
                 else:
-                    print(i.tiempo_estadia-((datetime.now()-i.fechacomienzo).days()))
-        #al tiempo de estadía le resta lo que ya estuviste
-        elif tipo.lower()=="s":
-            for i in self.m_sombrillas:
-                if i==None:
-                    print(0)
-                else:
-                    print(i.tiempo_estadia-((datetime.now()-i.fechacomienzo).days()))
+                    print(i.estado.tiempo_estadia-((datetime.now()-i.fechacomienzo).days()))
 
-
-    def asignar_reserva(matriz, tipo_reserva):
-        pass
+    def asignar_reserva(self,matriz, tipo_reserva):
+        matriz_correcta=lambda x: self.m_carpas if x=="C" else self.m_sombrillas
+        matriz=matriz_correcta(tipo_reserva)
     #según si es sombrilla o carpa, revisamos las matrices para ver si tienen lugares disponibles, y en base a eso asignamos una posicion
 
     def calcular_precio(): 
@@ -102,4 +94,7 @@ class Balneario():
         pass
     #viene el cliente y pide modificar su tiempo de estadia
 
-    
+
+if __name__=="main":
+    bal=Balneario("Balneario Carilo")
+    print(bal.m_carpas)

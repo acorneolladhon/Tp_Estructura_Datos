@@ -6,6 +6,7 @@ class Reserva():
         self.fechacomienzo=fechacomienzo #cuando la creás, le pasás la fecha de ese día
         self.precio=0  # el precio lo calcula el empleado al crear la reserva
         self.tipo_reserva=tipo_reserva
+        self.deuda=0
     
     def __str__(self):
         return "Reserva: {}, días de estadía total: {}".format(self.numreserva,self.tiempo_estadia)

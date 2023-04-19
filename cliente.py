@@ -9,6 +9,7 @@ class Cliente(Persona):
             super().__init__(nombre, dni, sexo)
             self.tel=tel
             self.num_tarjeta=num_tarjeta
+            
         except ValueError as e:
             print("Error!!", e)
 
