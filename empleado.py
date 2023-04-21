@@ -5,8 +5,9 @@ def generar_cod():
     cod=""
     for i in range(5):
         cod+=str(randint(0,9))
-    print("Su código de empleado es el siguiente. Guárdelo!!!!: ", cod)
+    # print("Su código de empleado es el siguiente. Guárdelo!!!!: ", cod)
     return cod
+
 
 class Empleado(Persona):
     try:
