@@ -6,6 +6,9 @@ from empleado import Empleado
 from persona import Persona
 from cliente import Cliente
 from datetime import datetime
+import pickle
+import csv
+
 
 class Balneario():
     def __init__(self, nombre):         
@@ -18,17 +21,29 @@ class Balneario():
         sombris=[[Sombrilla() for i in range(5)] for i in range(3)]
         self.m_sombrillas=np.array(sombris)
 
-    def leer_archivos(self, arch_emps, arch_clientes, arch_matrices):
-        pass
-    #con esta función, al iniciar el programa desde el main, buscamos toda la información del balneario en los archivos que llamamos y tambien en el archivo de clientes y de empleados
+    #FUNCIÓN PARA LEER EL PICKLE Y RECUPERAR TODA LA INFO DEL BALNEARIO PARA ARRANCAR
+    def leer_archivos(self,path):
+        with open(path, "rb") as f:
+            infobal=pickle.load(f)
+        return infobal
+
+    #FUNCIÓN PARA CARGAR EL ARCHIVO CSV DE CONTRASEÑAS CADA VEZ QUE SE CIERRA EL PROGRAMA
+    def cargar_contraseñas(self):
+        with open('usuarios.csv', 'w', newline='') as csvfile:
+            fieldnames = ['usuario', 'contraseña']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for empleado in self.dicemp.keys():
+                writer.writerow({'usuario': empleado.codemp, 'contraseña': empleado.contra})
 
     def revisar_matrices(self):
         pass
     #con esta función, antes de cerrar el programa revisamos las matrices para ver si están vencidas, si hay algo vencido lo sacamos y ponemos None
 
-    def cargar_archivos(self, info_emps, info_matrices):
-        pass
-    #con esta función, al cerrar el programa, guardamos toda la info que recolectamos durante esa utilización del programa 
+    #FUNCIÓN PARA HACER PERSISTIR LA INFO DEL OBJETO BALNEARIO EN UN PICKLE
+    def cargar_archivos(self):
+        with open("archivobalneario.pkl", "wb") as f:
+            pickle.dump(self, f, protocol=pickle.HIGHEST_PROTOCOL)
 
     #FUNCIÓN PARA CARGAR UN EMPLEADO A LA LISTA DE EMPLEADOS Y CREARLO
     #HAY QUE VALIDAR LA INFORMACIÓN INGRESADA DESDE LA CLASE EMPLEADO Y PERSONA
@@ -41,20 +56,21 @@ class Balneario():
             else:
                 raise ValueError("Ese empleado ya fue cargado.")
         except ValueError as e:
-            print("Error!", e)
+            print("Error!", e, "El empleado no fue cargado.")
 
     #FUNCIÓN PARA REGISTRAR UN CLIENTE Y CREARLO, DIRECTAMENTE SE LE PASA LA INFO
     #IDEM EMPLEADO
     def registrar_cliente(self, nombre_pedido, dni_pedido, sexo_pedido, numtel, numtarjeta):
-        try:    
+        try:
             if dni_pedido not in self.dicclientes.keys():
                 cl=Cliente(nombre_pedido,dni_pedido,sexo_pedido,numtel, numtarjeta)
                 self.dicclientes[dni_pedido]=cl
             else:
                 raise ValueError("Ese cliente ya se encuentra registrado.")
         except ValueError as e:
-            print("Error !", e)
+            print("Error !", e, "El cliente no fue registrado.")
 
+    #ESTO VA A PASAR ANTES DE SUBIR LOS ARCHIVOS, ASÍ QUE NO LO VAMOS A USAR
     #FUNCIÓN QUE VALIDA LA CONTRASEÑA, DEVUELVE TRUE SI ESTÁ REGISTRADO Y FALSE SI NO
     #HAY QUE CREAR UN ARCHIVO CSV/TXT con contraseñas y usuarios
     def validar_contraseña(self, codemp_ingresado):
@@ -71,7 +87,6 @@ class Balneario():
 
     #FUNCIÓN PARA IMPRIMIR LA MATRIZ Y VER LAS OPCIONES SEGÚN CUÁL ESTÁ OCUPADA Y CUÁL NO
     #DICE CUÁNTOS DÍAS LE QUEDA A CADA UNA
-    #LO DE S Y C SE PODRÍA HACER CON UN MAP Y FILTER EN MENOS RENGLONES
     def ver_matriz(self, tipo_reserva):
         matriz_correcta=lambda x: self.m_carpas if x=="C" else self.m_sombrillas
         matriz=matriz_correcta(tipo_reserva)
@@ -95,6 +110,21 @@ class Balneario():
     #viene el cliente y pide modificar su tiempo de estadia
 
 
-if __name__=="main":
+if __name__=="__main__":
     bal=Balneario("Balneario Carilo")
-    print(bal.m_carpas)
+    # for i in bal.m_carpas:
+    #     print("\n")
+    #     for ax in i:
+    #         print(ax.estado, end="\t")
+#print("\n")
+#bal.cargar_empleado("Juan", 33333333, "m")
+#print(bal.dicemp[33333333])
+
+    bal.registrar_cliente("joseidna", 44486117, "m", 1167778764,1111111111111111)
+
+    print(bal.dicclientes[44486117])
+    bal.cargar_archivos()
+    bl2=Balneario("ca")
+    info=bl2.leer_archivos("archivobalneario.pkl")
+    bl2=info
+    print(bl2)
