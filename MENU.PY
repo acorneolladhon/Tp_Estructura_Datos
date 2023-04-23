@@ -6,3 +6,10 @@
 #ahí ofrecés agregar empleado cliente reserva carpas
 
 #opciones del menú
+from balneario import Balneario
+
+bal=Balneario("Balneario Carilo")
+balneario=bal.leer_archivos("archivobalneario.pkl")  #acá cargo toda la info del balneario
+
+us=input("Ingrese su nombre de usuario: ")
+balneario.validar_contraseña(us)

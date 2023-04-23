@@ -9,7 +9,6 @@ from datetime import datetime
 import pickle
 import csv
 
-
 class Balneario():
     def __init__(self, nombre):         
         self.nombre=nombre
@@ -21,6 +20,9 @@ class Balneario():
         sombris=[[Sombrilla() for i in range(5)] for i in range(3)]
         self.m_sombrillas=np.array(sombris)
 
+    def __str__(self) -> str:
+        return "Bienvenido a {}".format(self.nombre)
+
     #FUNCIÓN PARA LEER EL PICKLE Y RECUPERAR TODA LA INFO DEL BALNEARIO PARA ARRANCAR
     def leer_archivos(self,path):
         with open(path, "rb") as f:
@@ -28,13 +30,13 @@ class Balneario():
         return infobal
 
     #FUNCIÓN PARA CARGAR EL ARCHIVO CSV DE CONTRASEÑAS CADA VEZ QUE SE CIERRA EL PROGRAMA
-    def cargar_contraseñas(self):
+    def crear_arch_contraseñas(self):
         with open('usuarios.csv', 'w', newline='') as csvfile:
             fieldnames = ['usuario', 'contraseña']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
             for empleado in self.dicemp.keys():
-                writer.writerow({'usuario': empleado.codemp, 'contraseña': empleado.contra})
+                writer.writerow({'usuario': self.dicemp[empleado].codemp, 'contraseña': self.dicemp[empleado].contra})
 
     def revisar_matrices(self):
         pass
@@ -74,7 +76,7 @@ class Balneario():
     #FUNCIÓN QUE VALIDA LA CONTRASEÑA, DEVUELVE TRUE SI ESTÁ REGISTRADO Y FALSE SI NO
     #HAY QUE CREAR UN ARCHIVO CSV/TXT con contraseñas y usuarios
     def validar_contraseña(self, codemp_ingresado):
-        if codemp_ingresado in self.dicemp.keys():
+        if codemp_ingresado in self.dicusuarios.keys():
             contra=input("Ingrese su contraseña: ")
             while self.dicusuarios[codemp_ingresado]!=contra and contra!="0":
                 contra=input("Contraseña incorrecta.Vuelva a intentar (o presione 0 para salir): ")
@@ -83,7 +85,7 @@ class Balneario():
             else:
                 return True
         else:
-            print("Usted no se encuentra registrado en el sistema.")
+            print("Usted no se encuentra registrado en el sistema. El programa se cerrará  por seguridad.")
 
     #FUNCIÓN PARA IMPRIMIR LA MATRIZ Y VER LAS OPCIONES SEGÚN CUÁL ESTÁ OCUPADA Y CUÁL NO
     #DICE CUÁNTOS DÍAS LE QUEDA A CADA UNA
@@ -116,15 +118,14 @@ if __name__=="__main__":
     #     print("\n")
     #     for ax in i:
     #         print(ax.estado, end="\t")
-#print("\n")
-#bal.cargar_empleado("Juan", 33333333, "m")
-#print(bal.dicemp[33333333])
 
-    bal.registrar_cliente("joseidna", 44486117, "m", 1167778764,1111111111111111)
-
-    print(bal.dicclientes[44486117])
-    bal.cargar_archivos()
-    bl2=Balneario("ca")
-    info=bl2.leer_archivos("archivobalneario.pkl")
-    bl2=info
-    print(bl2)
+    balneario=bal.leer_archivos("archivobalneario.pkl")
+    #bal.cargar_empleado("Juan Gallo", 44457119, "m")
+    #bal.cargar_empleado("Juliana Martina", 43221223, "f")
+    #bal.cargar_empleado("Juana de Sanchez", 45231425, "f")
+    for i in balneario.dicemp.keys():
+        print(i)
+    for i in balneario.dicusuarios.keys():
+        print(type(i))
+    
+    balneario.validar_contraseña("79711")
