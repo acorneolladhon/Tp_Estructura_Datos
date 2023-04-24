@@ -5,14 +5,16 @@ def generar_cod():
     cod=""
     for i in range(5):
         cod+=str(randint(0,9))
-    print("Su código de empleado es el siguiente. Guárdelo!!!!: ", cod)
+    # print("Su código de empleado es el siguiente. Guárdelo!!!!: ", cod)
     return cod
+
 
 class Empleado(Persona):
     try:
         def __init__(self, nombre, dni, sexo):
                 super().__init__(nombre, dni, sexo)
                 self.codemp=generar_cod()
+                print("Este es su código de empleado autogenerado, guárdelo para ingresar al sistema: {}".format(self.codemp))
                 contra=input("A continuación, cree su contraseña (5 caracteres mínimo): ")
                 while len(contra)<5:
                     contra=input("Vuelva a crear su contraseña (5 caracteres mínimo): ")

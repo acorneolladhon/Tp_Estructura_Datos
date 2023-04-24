@@ -1,14 +1,16 @@
 from persona import Persona
+
 class Cliente(Persona):
     #try:
     def __init__(self, nombre, dni, sexo, tel, num_tarjeta):
-        if type(tel)!=int or len(str(tel))!=10:
+        if len(tel)!=10:
             raise ValueError("El número de teléfono no cumple con el formato adecuado.")
-        if type(num_tarjeta)!=int or len(str(num_tarjeta))!=16:
+        #if type(num_tarjeta)!=int or len(str(num_tarjeta))!=16:
+        if len(num_tarjeta)!=16:
             raise ValueError("El número de tarjeta no cumple con el formato adecuado.")
         super().__init__(nombre, dni, sexo)
-        self.tel=tel
-        self.num_tarjeta=num_tarjeta
+        self.tel=int(tel)
+        self.num_tarjeta=int(num_tarjeta)
     #except ValueError as e:
     #     print("Error!!", e)
 

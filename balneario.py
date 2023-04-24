@@ -72,6 +72,10 @@ class Balneario():
         except ValueError as e:
             print("Error !", e, "El cliente no fue registrado.")
 
+    def validar_cliente(self, dni_cliente):
+        buscar_dni=lambda dni:True if dni_cliente in self.dicclientes.keys() else False
+        return buscar_dni(dni_cliente)
+
     #ESTO VA A PASAR ANTES DE SUBIR LOS ARCHIVOS, ASÍ QUE NO LO VAMOS A USAR
     #FUNCIÓN QUE VALIDA LA CONTRASEÑA, DEVUELVE TRUE SI ESTÁ REGISTRADO Y FALSE SI NO
     #HAY QUE CREAR UN ARCHIVO CSV/TXT con contraseñas y usuarios
