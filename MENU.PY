@@ -33,26 +33,59 @@ if balneario.validar_contraseña(us):
             
             #OPCIÓN DE: CLIENTE NO ESTÁ REGISTRADO --> LO REGISTRO
             if registrado.lower().strip()=="n":
+                print("Registre al cliente:\n")
                 nom=input("Ingrese el nombre del cliente: ")
                 dni_cliente=input("Ingrese el DNI del cliente: ")
                 sexo_cliente=input("Ingrese el sexo del cliente (M o F): ")
                 numero_cliente=input("Ingrese el número de teléfono del cliente (10 dígitos): ")
                 tarjeta=input("Ingrese el número de tarjeta del cliente (16 dígitos): ")
-                balneario.registrar_cliente(nom,dni_cliente,sexo_cliente.strip(),numero_cliente,tarjeta)
+                factor=balneario.registrar_cliente(nom,dni_cliente,sexo_cliente.strip(),numero_cliente,tarjeta)
+                seguir=lambda x: True if factor==True else False
+                continuar=seguir(factor)
 
             #OPCIÓN DE: CLIENTE ESTÁ REGISTRADO --> LO VALIDO
             elif registrado.lower().strip()=="s":
                 dni_buscado=input("Ingrese el DNI del cliente: ")
                 if not(bal.validar_cliente(dni_buscado.strip())):
+                    continuar=False
                     print("El cliente no se encuentra registrado, hágalo ingresando la opción en el menú.")
-
+                else:
+                    continuar=True
             #UNA VEZ QUE ENTRÉ CON EL CLIENTE, HAY QUE VER QUÉ QUIERE HACER CON ÉL
             #OFRECER OPCIONES PARA HACER O MODIFICAR RESERVAS
 
             #ELIGIÓ MAL ENTRE 1 Y 2, LO MANDA A TOMAR LA DECISIÓN
             else:
+                continuar=False
                 print("La opción elegida no estaba entre las posibles.")
     
+        if continuar!=False:
+                comenzar2=True
+                while comenzar2==True:
+                    choice2=input("""Qué quiere hacer con su cliente?
+                    1-Asignar reserva
+                    2-Modificar estadía
+                    3-Cobrar
+                    4-PEDIR EN EL RESTAURANTE 
+                    5-Salir""")
+                    #FALTA CHEQUEAR QUE LA OPCIÓN NO SEA POSIBLE
+                    if choice2=="1":
+                        pass
+                    elif choice2=="2":
+                        pass
+                    elif choice2=="3":
+                        pass
+                    elif choice2=="4":
+                        pass
+                    elif choice2=="5":
+                        break
+                    else:
+                        print("La elección no era una opción.")
+
+
+                    finalización=input("Desea hacer algo más con este cliente? (ENTER para salir, cualquier tecla para continuar): ")
+                    if finalización=="":
+                        break
         #ACÁ VEMOS SI QUIERE CONTINUAR O NO HACIENDO ALGUNA OTRA COSA DESPUÉS DE HACER 
         #LO QUE PEDÍA, ESTO QUIZÁS DEBERÍA IR ADENTRO DE UN WHILE CON LAS OPCIONES PARA
         #EL CLIENTE UNA VEZ DENTRO DEL SISTEMA DEL BALNEARIO

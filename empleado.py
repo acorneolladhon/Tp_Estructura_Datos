@@ -14,10 +14,10 @@ class Empleado(Persona):
         def __init__(self, nombre, dni, sexo):
                 super().__init__(nombre, dni, sexo)
                 self.codemp=generar_cod()
-                print("Este es su código de empleado autogenerado, guárdelo para ingresar al sistema: {}".format(self.codemp))
-                contra=input("A continuación, cree su contraseña (5 caracteres mínimo): ")
+                print("Este es el código del empleado autogenerado, el empleado deberá guardarlo para ingresar al sistema: {}".format(self.codemp))
+                contra=input("A continuación, el empleado debe ingresar su nueva contraseña (5 caracteres mínimo): ")
                 while len(contra)<5:
-                    contra=input("Vuelva a crear su contraseña (5 caracteres mínimo): ")
+                    contra=input("Contraseña inválida, vuelva a ingresarla (5 caracteres mínimo): ")
                 self.contra=contra
     except ValueError as e:
         print("Error!", e)   

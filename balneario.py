@@ -67,9 +67,11 @@ class Balneario():
             if dni_pedido not in self.dicclientes.keys():
                 cl=Cliente(nombre_pedido,dni_pedido,sexo_pedido,numtel, numtarjeta)
                 self.dicclientes[dni_pedido]=cl
+                return True
             else:
                 raise ValueError("Ese cliente ya se encuentra registrado.")
         except ValueError as e:
+            return False
             print("Error !", e, "El cliente no fue registrado.")
 
     def validar_cliente(self, dni_cliente):
