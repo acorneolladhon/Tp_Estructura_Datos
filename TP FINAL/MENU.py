@@ -1,6 +1,6 @@
 from bal2 import *
 import pickle
-import matplotlib.pyplot as plt
+#12345import matplotlib.pyplot as plt
 
 
 def recorrer_diccionario(diccionario):
@@ -45,9 +45,9 @@ if validar==True:
                 3- Visualizar clientes
                 4- Visualizar empleados
                 5- Visualizar disponibilidad de sombrillas
-                6-Visualizar disponibilidad de carpas
-                7-Ver clientes adeudados
-                8-Salir: """)
+                6- Visualizar disponibilidad de carpas
+                7- Ver clientes adeudados
+                8- Salir: """)
 
         if choice=="8":
             break
