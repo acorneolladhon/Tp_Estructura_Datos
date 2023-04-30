@@ -70,7 +70,6 @@ class Balneario():
                 return True
             else:
                 raise ValueError("Ese cliente ya se encuentra registrado.")
-                return False
         except ValueError as e:
             print("Error !", e, "El cliente no fue registrado.")
             return False
