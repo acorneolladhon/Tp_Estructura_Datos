@@ -18,8 +18,8 @@ us=input("Ingrese su código de empleado: ")
 validar= balneario.validar_contraseña(us)
 
 while validar==False:
-    decision=input("Desea ingresar otro usuario? (presione cualquier tecla, si no, ENTER para salir): ")
-    if decision !="":
+    decision=input("Desea ingresar otro usuario? (presione Enter, o si no, cualquier otra tecla para salir): ")
+    if decision =="":
         us=input("Ingrese su código de empleado: ")
         validar=balneario.validar_contraseña(us)
     else:
@@ -168,8 +168,8 @@ if validar==True:
                         else:
                             print("La elección no era una opción.")
         
-                        finalización=input("Desea hacer algo más con este cliente? (ENTER para salir, cualquier tecla para continuar): ")
-                        if finalización=="":
+                        finalización=input("Desea hacer algo más con este cliente? (ENTER para continuar, cualquier tecla para salir): ")
+                        if finalización!="":
                             break
 
         elif choice=="3":
@@ -190,8 +190,8 @@ if validar==True:
                 if balneario.dicclientes[cliente].deuda!=0:
                     print(cliente)
                                 
-        decision=input("¿Desea continuar? (presione ENTER para salir, y cualquier otra tecla para continuar): ")
-        if decision=="":
+        decision=input("¿Desea continuar? (presione ENTER para continuar, y cualquier otra tecla para salir): ")
+        if decision!="":
             break
 
 balneario.revisar_matriz("c")
