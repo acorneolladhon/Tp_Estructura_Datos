@@ -147,6 +147,7 @@ if validar==True:
                                         try:
                                             if dni_trabajado in balneario.reservas_vigentes.keys():
                                                 tipo=balneario.reservas_vigentes[dni_trabajado].tipo_reserva
+                                                precio_dia=lambda tipo_reserva:cotizacioncarpa if tipo_reserva.lower().strip()=="c" else cotizacionsombrilla
                                                 precio=precio_dia(tipo)
                                                 #print(precio)
                                                 balneario.modificar_estadia(d_extra,dni_trabajado, precio)
