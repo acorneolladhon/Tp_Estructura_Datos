@@ -1,17 +1,18 @@
 from bal2 import *
 import pickle
-#import matplotlib.pyplot as plt
+#12345import matplotlib.pyplot as plt
+
 
 def recorrer_diccionario(diccionario):
     for key in diccionario.keys():
         print(diccionario[key])
 
 try:
-    with open("archivobalneario.pkl", "rb") as f:
+    with open("archivobalneario.pkl", "rb") as f:   #abro el pickle
         balneario=pickle.load(f)
 except FileNotFoundError:
         balneario=Balneario("Carpas y sombrillas")
-        balneario.cargar_empleado("Mauro Díaz", "21333333", "M")
+        balneario.cargar_empleado("Leandro Díaz", "21333333", "M")
 
 us=input("Ingrese su código de empleado: ")
 validar= balneario.validar_contraseña(us)
@@ -39,7 +40,7 @@ if validar==True:
     while comenzar==True:
 
         choice=input("""¿Qué desea hacer?
-                1- Ingresar un empleado nuevo
+                1- Acciones con empleados
                 2- Acciones con clientes
                 3- Visualizar clientes
                 4- Visualizar empleados
@@ -51,8 +52,6 @@ if validar==True:
 
         if choice=="8":
             break
-
-        #HACER UN WHILE Y ADEMÁS SUMAR OPCIÓN DE ELIMINAR EMPLEADO
         elif choice=="1":
             nombre=input("Ingrese el nombre del empleado: ")
             dni_ingreso=input("Ingrese el DNI del empleado: ")
