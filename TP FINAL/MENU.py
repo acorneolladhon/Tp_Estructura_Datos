@@ -11,7 +11,7 @@ try:
         balneario=pickle.load(f)
 except FileNotFoundError:
         balneario=Balneario("Carpas y sombrillas")
-        balneario.cargar_empleado("Mauro Díaz", "21333333", "M")
+        balneario.cargar_empleado("Leandro Díaz", "21333333", "M")
 
 us=input("Ingrese su código de empleado: ")
 validar= balneario.validar_contraseña(us)
