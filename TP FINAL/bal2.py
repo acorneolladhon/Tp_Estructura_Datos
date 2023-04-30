@@ -215,7 +215,7 @@ class Balneario():
         if int(dni_cliente) in self.dicclientes.keys():
             if self.dicclientes[int((dni_cliente))].deuda!=0:
                 if chequear_flotante(monto_abonado):
-                    if float(monto_abonado)>0 and float(monto_abonado)<self.dicclientes[int(dni_cliente)].deuda:
+                    if float(monto_abonado)>0 and float(monto_abonado)<=self.dicclientes[int(dni_cliente)].deuda:
                         self.dicclientes[int(dni_cliente)].deuda-=float(monto_abonado)
                         print("Ahora, la deuda restante es de: {}$".format(self.dicclientes[int(dni_cliente)].deuda))
                     else:
