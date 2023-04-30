@@ -106,6 +106,7 @@ if validar==True:
                         4-Salir
                         Opción: """)
 
+<<<<<<< HEAD
                         if choice2=="1":
                             tipo_reserva=input("Qué va a reservar? (Sombrilla: s, Carpa: c): ")
                             if tipo_reserva.lower()=="s" or tipo_reserva.lower()=="c":
@@ -192,6 +193,16 @@ if validar==True:
                                 
         decision=input("¿Desea continuar? (presione ENTER para salir, y cualquier otra tecla para continuar): ")
         if decision=="":
+=======
+                    finalización=input("Desea hacer algo más con este cliente? (ENTER para continuar, cualquier tecla para salir): ")
+                    if finalización!="":
+                        break
+        #ACÁ VEMOS SI QUIERE CONTINUAR O NO HACIENDO ALGUNA OTRA COSA DESPUÉS DE HACER 
+        #LO QUE PEDÍA, ESTO QUIZÁS DEBERÍA IR ADENTRO DE UN WHILE CON LAS OPCIONES PARA
+        #EL CLIENTE UNA VEZ DENTRO DEL SISTEMA DEL BALNEARIO
+        decision=input("¿Desea continuar? (presione ENTER para continuar, y cualquier otra tecla para salir): ")
+        if decision!="":
+>>>>>>> a823c47b2c8181ca8ecd1d6a3d67c73a504fa0ec
             break
 
 balneario.revisar_matriz("c")
