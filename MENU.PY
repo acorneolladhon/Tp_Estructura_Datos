@@ -83,14 +83,14 @@ if balneario.validar_contraseña(us):
                         print("La elección no era una opción.")
 
 
-                    finalización=input("Desea hacer algo más con este cliente? (ENTER para salir, cualquier tecla para continuar): ")
-                    if finalización=="":
+                    finalización=input("Desea hacer algo más con este cliente? (ENTER para continuar, cualquier tecla para salir): ")
+                    if finalización!="":
                         break
         #ACÁ VEMOS SI QUIERE CONTINUAR O NO HACIENDO ALGUNA OTRA COSA DESPUÉS DE HACER 
         #LO QUE PEDÍA, ESTO QUIZÁS DEBERÍA IR ADENTRO DE UN WHILE CON LAS OPCIONES PARA
         #EL CLIENTE UNA VEZ DENTRO DEL SISTEMA DEL BALNEARIO
-        decision=input("¿Desea continuar? (presione ENTER para salir, y cualquier otra tecla para continuar): ")
-        if decision=="":
+        decision=input("¿Desea continuar? (presione ENTER para continuar, y cualquier otra tecla para salir): ")
+        if decision!="":
             break
 
 #UNA VEZ QUE NO QUIERE HACER NADA MÁS, SALE DEL PROGRAMA
