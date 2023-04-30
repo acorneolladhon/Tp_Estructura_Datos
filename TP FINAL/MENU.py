@@ -7,7 +7,7 @@ def recorrer_diccionario(diccionario):
         print(diccionario[key])
 
 try:
-    with open("archivobalneario.pkl", "rb") as f:
+    with open("archivobalneario.pkl", "rb") as f:   #abro el pickle
         balneario=pickle.load(f)
 except FileNotFoundError:
         balneario=Balneario("Carpas y sombrillas")
@@ -39,7 +39,7 @@ if validar==True:
     comenzar=True
     while comenzar==True:
         choice=input("""¿Qué desea hacer?
-                1- Ingresar un empleado nuevo
+                1- Acciones con empleados
                 2- Acciones con clientes
                 3- Visualizar clientes
                 4- Visualizar empleados
@@ -50,7 +50,7 @@ if validar==True:
 
         if choice=="8":
             break
-        elif choice=="1":
+        elif choice=="1":  #cambiar menu xq solo registramos 
             nombre=input("Ingrese el nombre del empleado: ")
             dni_ingreso=input("Ingrese el DNI del empleado: ")
             sex=input("Ingrese el sexo del empleado (M o F): ")
