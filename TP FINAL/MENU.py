@@ -2,7 +2,6 @@ from bal2 import *
 import pickle
 #import matplotlib.pyplot as plt
 
-
 def recorrer_diccionario(diccionario):
     for key in diccionario.keys():
         print(diccionario[key])
