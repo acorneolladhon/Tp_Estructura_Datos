@@ -15,6 +15,12 @@ a,b=hola(carpas)
 print(a)
 print(b)
 
+dic=dict()
+dic[23]="hola"
+print(dic)
+dic.pop(23)
+print(dic)
+
 #devuelve posicion de la matriz libre
     # def buscar_disponible(self, tipo_reserva):
     #     matriz=self.matrizdetrabajo(tipo_reserva)
