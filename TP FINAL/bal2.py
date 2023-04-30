@@ -70,6 +70,7 @@ class Balneario():
                 return True
             else:
                 raise ValueError("Ese cliente ya se encuentra registrado.")
+                return False
         except ValueError as e:
             print("Error !", e, "El cliente no fue registrado.")
             return False
@@ -226,8 +227,16 @@ class Balneario():
         else:
             raise KeyError("El cliente no se encuentra registrado.")            
 
-if __name__=="__main__":
-    balneario=Balneario("Balneario Carilo")
+    def eliminar_empleado():
+        pass
+
+    def modificar_carpa():
+        pass
+
+       
+
+#if __name__=="__main__":
+    #balneario=Balneario("Balneario Carilo")
 
     #balneario=bal.leer_archivos("archivobalneario.pkl")
     #balneario.crear_backup_contraseñas()
@@ -256,4 +265,3 @@ if __name__=="__main__":
     # except ValueError as e:
     #     print("Error!", e)
 
-    

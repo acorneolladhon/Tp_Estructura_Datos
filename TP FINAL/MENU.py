@@ -1,7 +1,6 @@
 from bal2 import *
 import pickle
-#12345import matplotlib.pyplot as plt
-
+#import matplotlib.pyplot as plt
 
 def recorrer_diccionario(diccionario):
     for key in diccionario.keys():
@@ -24,7 +23,7 @@ while validar==False:
         validar=balneario.validar_contraseña(us)
     else:
         validar=""
-  
+ 
 if validar==True:
     print("Bienvenido al sistema de reservas del Balneario")
     cotizacioncarpa=input("Antes de comenzar, ingrese la cotización de hoy para el precio por día de las carpas: ")
@@ -33,12 +32,12 @@ if validar==True:
     cotizacionsombrilla=input("Ingrese la cotización de hoy para el precio por día de las sombrillas:")
     while not(chequear_flotante(cotizacionsombrilla)):
         cotizacionsombrilla=input("Formato inválido, ingrése el valor nuevamente: ")
-
     cotizacionsombrilla=float(cotizacionsombrilla)
     cotizacioncarpa=float(cotizacioncarpa)
 
     comenzar=True
     while comenzar==True:
+
         choice=input("""¿Qué desea hacer?
                 1- Ingresar un empleado nuevo
                 2- Acciones con clientes
@@ -47,10 +46,13 @@ if validar==True:
                 5- Visualizar disponibilidad de sombrillas
                 6- Visualizar disponibilidad de carpas
                 7- Ver clientes adeudados
-                8- Salir: """)
+                8- Salir
+                Opción: """)
 
         if choice=="8":
             break
+
+        #HACER UN WHILE Y ADEMÁS SUMAR OPCIÓN DE ELIMINAR EMPLEADO
         elif choice=="1":
             nombre=input("Ingrese el nombre del empleado: ")
             dni_ingreso=input("Ingrese el DNI del empleado: ")
@@ -62,7 +64,8 @@ if validar==True:
 
         elif choice=="2":
             registrado=input("¿El cliente ya está registrado en el sistema?(s o n): ")
-            
+
+            #HACER UN WHILE
             #OPCIÓN DE: CLIENTE NO ESTÁ REGISTRADO --> LO REGISTRO
             if registrado.lower().strip()=="n":
                 print("Registre al cliente:\n")
@@ -72,7 +75,8 @@ if validar==True:
                 numero_cliente=input("Ingrese el número de teléfono del cliente (10 dígitos): ")
                 tarjeta=input("Ingrese el número de tarjeta del cliente (16 dígitos): ")
                 factor=balneario.registrar_cliente(nom,dni_cliente,sexo_cliente.strip(),numero_cliente,tarjeta)
-                seguir=lambda x: True if factor==True else False
+                #CHEQUEAR ACA
+                seguir=lambda x: True if x==True else False
                 continuar=seguir(factor)
                 if continuar!=False:
                     dni_trabajado=int(dni_cliente)
@@ -111,6 +115,7 @@ if validar==True:
                             if tipo_reserva.lower()=="s" or tipo_reserva.lower()=="c":
                                 print("Actualmente, estas son las opciones (los números representan los días por los cuales permanecerá ocupada, los 0 representan disponibilidad): ")
                                 balneario.ver_matriz(tipo_reserva)
+                                #AGREGAR FILA Y COLUMNA
                                 metodo_eleccion=input("Desea elegir una fila? O prefiere una asignación automática de lugar? (Fila: F, Automático: A): ")
                                 if metodo_eleccion.lower().strip()!="f" and metodo_eleccion.lower().strip()!="a":
                                     print("El método elegido no es válido.")
@@ -120,14 +125,17 @@ if validar==True:
                                     else:
                                         fila_requerida=None
                                     dias=input("Ingrese la cantidad de días de hospedaje: ")
-                                    if dias.isdigit():
-                                        try:
-                                            precio_dia=lambda tipo_reserva:cotizacioncarpa if tipo_reserva.lower().strip()=="c" else cotizacionsombrilla
-                                            precio=precio_dia(tipo_reserva)
-                                            reserva_realizada=balneario.asignar_reserva(tipo_reserva,metodo_eleccion,int(dias), int(dni_trabajado),precio,fila_requerida)
-                                            balneario.ver_matriz(tipo_reserva)
-                                        except ValueError as e:
-                                            print("Error!", e)
+                                    if dias.isdigit():  #DIAS CHEQUEAR MAYOR A 0 CON INT
+                                        if int(dias)>0:
+                                            try:
+                                                precio_dia=lambda tipo_reserva:cotizacioncarpa if tipo_reserva.lower().strip()=="c" else cotizacionsombrilla
+                                                precio=precio_dia(tipo_reserva)
+                                                reserva_realizada=balneario.asignar_reserva(tipo_reserva,metodo_eleccion,int(dias), int(dni_trabajado),precio,fila_requerida)
+                                                balneario.ver_matriz(tipo_reserva)
+                                            except ValueError as e:
+                                                print("Error!", e)
+                                        else:
+                                            print("Los días ingresados deben ser mayores a 0, deberá volver a comenzar la operación.")
                                     else:
                                         print("El formato de los días ingresados no es correcto, deberá volver a comenzar la operación.")
                             else:
@@ -137,17 +145,20 @@ if validar==True:
                             try:
                                 d_extra=input("Ingrese días que se desea agregar a la estadía: ")
                                 if d_extra.isdigit():
-                                    try:
-                                        if dni_trabajado in balneario.reservas_vigentes.keys():
-                                            tipo=balneario.reservas_vigentes[dni_trabajado].tipo_reserva
-                                            precio=precio_dia(tipo)
-                                            print(precio)
-                                            balneario.modificar_estadia(d_extra,dni_trabajado, precio)
-                                        else:
-                                            print("Ese cliente no tiene una reserva vigente a su nombre para modificar.")
+                                    if int(d_extra)>0:
+                                        try:
+                                            if dni_trabajado in balneario.reservas_vigentes.keys():
+                                                tipo=balneario.reservas_vigentes[dni_trabajado].tipo_reserva
+                                                precio=precio_dia(tipo)
+                                                #print(precio)
+                                                balneario.modificar_estadia(d_extra,dni_trabajado, precio)
+                                            else:
+                                                print("Ese cliente no tiene una reserva vigente a su nombre para modificar.")
 
-                                    except ValueError as e:
-                                        print("Error!!", e)
+                                        except ValueError as e:
+                                            print("Error!!", e)
+                                    else:
+                                        raise ValueError("El número de días ingresado debe ser mayor a 0. La modificación no puede ser llevada a cabo.")
                                 else:
                                     raise ValueError("El número de días ingresado no cumple con el formato válido.La modificación no puede ser llevada a cabo.")
                             except ValueError as e:
@@ -188,7 +199,7 @@ if validar==True:
             print("Los DNI de los clientes deudores son los siguientes: \n")
             for cliente in balneario.dicclientes.keys():
                 if balneario.dicclientes[cliente].deuda!=0:
-                    print(cliente)
+                    print(str(cliente)+". Deuda: "+"$"+ str(balneario.dicclientes[cliente].deuda))
                                 
         decision=input("¿Desea continuar? (presione ENTER para continuar, y cualquier otra tecla para salir): ")
         if decision!="":
