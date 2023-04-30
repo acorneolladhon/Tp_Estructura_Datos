@@ -5,7 +5,6 @@ def generar_cod():
     cod=""
     for i in range(5):
         cod+=str(randint(0,9))
-    # print("Su código de empleado es el siguiente. Guárdelo!!!!: ", cod)
     return cod
 
 
@@ -24,8 +23,11 @@ class Empleado(Persona):
                 while len(contra)<5:
                     contra=input("Contraseña inválida, vuelva a ingresarla (5 caracteres mínimo): ")
                 self.contra=contra
+        
+        def __str__(self):
+            return "Datos del empleado: Nombre: {}, DNI: {}, Sexo: {}. Código de empleado: {}".format(self.nombre,self.dni,self.sexo,self.codemp)
+
     except ValueError as e:
         print("Error!", e)   
 
-    #acá hace falta cargar esa contraseña y usuario al txt o cs de usuarios
 
