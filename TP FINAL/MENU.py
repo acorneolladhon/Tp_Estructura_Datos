@@ -1,10 +1,5 @@
 from bal2 import *
 import pickle
-<<<<<<< HEAD
-#import matplotlib.pyplot as plt
-=======
-#12345import matplotlib.pyplot as plt
->>>>>>> ee55f9cf7e282c9bcadb8ffbd3900a130ded7109
 
 
 def recorrer_diccionario(diccionario):
