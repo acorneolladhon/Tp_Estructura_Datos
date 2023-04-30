@@ -5,9 +5,11 @@ from empleado import Empleado
 from persona import Persona
 from cliente import Cliente
 import datetime
-import numpy as np
 import pickle
 import csv
+
+#PARA ARRANCAR EL PROGRAMA Y PODER PROBARLO, ABRIR EL ARCHIVO USUARIOS CSV (AHÍ ESTÁN ANOTADAS LAS CONTRASEÑAS Y LOS CÓDIGOS DE EMPLEADOS)
+
 
 def chequear_flotante(numero_en_str):
     try:
