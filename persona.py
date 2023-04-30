@@ -9,6 +9,8 @@ class Persona():
             self.dni=int(dni)
             self.sexo=sexo.upper()
 
+    def __str__(self):
+        return "{}. DNI: {}, SEXO: {}".format(self.nombre,self.dni,self.sexo)
     # def __init__(self, nombre:str="", dni:str="", sexo:str="F"):
     #     self.persona_valida = True
     #     try: 

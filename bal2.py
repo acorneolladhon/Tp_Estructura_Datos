@@ -24,11 +24,8 @@ class Balneario():
         self.dicclientes=dict()
         self.dicusuarios=dict()
         self.reservas_vigentes=dict()
-
-        carpas=[[Carpa() for i in range(6)] for i in range(4)]
-        self.m_carpas=np.array(carpas)
-        sombris=[[Sombrilla() for i in range(5)] for i in range(3)]
-        self.m_sombrillas=np.array(sombris)
+        self.m_carpas=[[Carpa() for i in range(6)] for i in range(4)]
+        self.m_sombrillas=[[Sombrilla() for i in range(5)] for i in range(3)]
 
 #imprimo el nombre del Sistema de asignación de reservas
     def __str__(self) -> str:
@@ -177,7 +174,7 @@ class Balneario():
                 matriz[fila][columna].estado=reser
                 reser.precio=preciototal
                 self.dicclientes[dni_cliente].deuda=preciototal
-                print("Fecha de finalización de la reserva (puede modificarse): ", reser.vencimiento.day)   
+                print("Fecha de finalización de la reserva (puede modificarse): ", reser.vencimiento)   
                 self.reservas_vigentes[reser.cliente.dni]=reser
                 return reser
             else:
@@ -233,10 +230,10 @@ if __name__=="__main__":
 
     #balneario=bal.leer_archivos("archivobalneario.pkl")
     #balneario.crear_backup_contraseñas()
-    balneario.registrar_cliente("Juan Quiroga", "22222222","m","1138338366","1231231231231231")
-    balneario.cargar_empleado("Josefina Marta", "22278723", "F")
-    balneario.cargar_archivos()
-    balneario.crear_backup_contraseñas()
+    #balneario.registrar_cliente("Juan Quiroga", "22222222","m","1138338366","1231231231231231")
+    #balneario.cargar_empleado("Josefina Marta", "22278723", "F")
+    #balneario.cargar_archivos()
+    #balneario.crear_backup_contraseñas()
     # for i in balneario.dicclientes.keys():
     #     print(i)
     #     print(type(i))
@@ -257,4 +254,5 @@ if __name__=="__main__":
     #     balneario.ver_matriz("s")
     # except ValueError as e:
     #     print("Error!", e)
+
     
