@@ -10,7 +10,6 @@ import csv
 
 #PARA ARRANCAR EL PROGRAMA Y PODER PROBARLO, ABRIR EL ARCHIVO USUARIOS CSV (AHÍ ESTÁN ANOTADAS LAS CONTRASEÑAS Y LOS CÓDIGOS DE EMPLEADOS)
 
-
 def chequear_flotante(numero_en_str):
     try:
         float(numero_en_str)
