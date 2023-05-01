@@ -29,7 +29,7 @@ if validar==True:
     cotizacioncarpa=input("Antes de comenzar, ingrese la cotización de hoy para el precio por día de las carpas: ")
     while not(chequear_flotante(cotizacioncarpa)):
         cotizacioncarpa=input("Formato inválido, ingrése el valor nuevamente: ")
-    cotizacionsombrilla=input("Ingrese la cotización de hoy para el precio por día de las sombrillas:")
+    cotizacionsombrilla=input("Ingrese la cotización de hoy para el precio por día de las sombrillas: ")
     while not(chequear_flotante(cotizacionsombrilla)):
         cotizacionsombrilla=input("Formato inválido, ingrése el valor nuevamente: ")
     cotizacionsombrilla=float(cotizacionsombrilla)
@@ -42,74 +42,95 @@ if validar==True:
                 1- Acciones con empleados
                 2- Acciones con clientes
                 3- Visualizar clientes
-                4- Visualizar empleados
-                5- Visualizar disponibilidad de sombrillas
-                6- Visualizar disponibilidad de carpas
-                7- Ver clientes adeudados
-                8- Eliminar un empleado
-                9- Salir
+                4- Ver clientes adeudados
+                5- Visualizar disponibilidad de carpas
+                6- Visualizar disponibilidad de sombrillas
+                7- Salir
                 Opción: """)
 
-        if choice=="9":
+        if choice=="7":
             break
 
         elif choice=="1":
-            choice_empleado=input("""¿Qué desea hacer?
-            1-Registrar un nuevo empleado
-            2-Eliminar un empleado
-            Opción: """)
-            if choice_empleado=="1":
-                registrar_empleado=True
-                while registrar_empleado==True:
-                    nombre=input("Ingrese el nombre del empleado: ")
-                    dni_ingreso=input("Ingrese el DNI del empleado: ")
-                    sex=input("Ingrese el sexo del empleado (M o F): ")
+            empezar_empleado=True
+            while empezar_empleado==True:
+                choice_empleado=input("""¿Qué desea hacer?
+                1-Registrar un nuevo empleado
+                2-Eliminar un empleado
+                3-Visualizar empleados
+                4-Volver al menú principal
+                Opción: """)
+                if choice_empleado=="1":
+                    registrar_empleado=""
+                    while registrar_empleado=="":
+                        nombre=input("Ingrese el nombre del empleado: ")
+                        dni_ingreso=input("Ingrese el DNI del empleado: ")
+                        sex=input("Ingrese el sexo del empleado (M o F): ")
+                        try:
+                            registro=balneario.cargar_empleado(nombre,dni_ingreso,sex)
+                            break
+                        except ValueError as e:
+                            print("Error!", e)
+                            repetir=input("Desea volver a intentarlo? (ENTER para continuar, cualquier otra tecla para salir)")
+                            if repetir!="":
+                                break
+
+                elif choice_empleado=="2":
+                    dni_empleado=input("Ingrese el DNI del empleado a eliminar de los registros: ")
                     try:
-                        registro=balneario.cargar_empleado(nombre,dni_ingreso,sex)
-                        break
+                        print("El empleado eliminado es: ", balneario.eliminar_empleado(dni_empleado))
                     except ValueError as e:
-                        print("Error!", e)
-            elif choice_empleado=="2":
-                dni_empleado=input("Ingrese el DNI del empleado a eliminar de los registros: ")
-                try:
-                    print("El empleado eliminado es: ", balneario.eliminar_empleado(dni_empleado))
-                except ValueError as e:
-                    print("Error!!", e)
-            
-            else:
-                print("La opción ingresada no es válida.")
+                        print("Error!!", e)
+                
+                elif choice_empleado=="3":
+                    recorrer_diccionario(balneario.dicemp)
+                
+                elif choice_empleado=="4":
+                    break
+
+                else:
+                    print("La opción ingresada no es válida.")
 
 
         elif choice=="2":
             registrado=input("¿El cliente ya está registrado en el sistema?(s o n): ")
-
+            
             #OPCIÓN DE: CLIENTE NO ESTÁ REGISTRADO --> LO REGISTRO
             if registrado.lower().strip()=="n":
-                print("Registre al cliente:\n")
-                nom=input("Ingrese el nombre del cliente: ")
-                dni_cliente=input("Ingrese el DNI del cliente: ")
-                sexo_cliente=input("Ingrese el sexo del cliente (M o F): ")
-                numero_cliente=input("Ingrese el número de teléfono del cliente (10 dígitos): ")
-                tarjeta=input("Ingrese el número de tarjeta del cliente (16 dígitos): ")
-                factor=balneario.registrar_cliente(nom,dni_cliente,sexo_cliente.strip(),numero_cliente,tarjeta)
-                seguir=lambda x: True if x==True else False
-                continuar=seguir(factor)
-                if continuar!=False:
-                    dni_trabajado=int(dni_cliente)
+                comenzar_cliente=True
+                while comenzar_cliente==True:
+                    print("Registre al cliente:\n")
+                    nom=input("Ingrese el nombre del cliente: ")
+                    dni_cliente=input("Ingrese el DNI del cliente: ")
+                    sexo_cliente=input("Ingrese el sexo del cliente (M o F): ")
+                    numero_cliente=input("Ingrese el número de teléfono del cliente (10 dígitos): ")
+                    tarjeta=input("Ingrese el número de tarjeta del cliente (16 dígitos): ")
+                    continuar=balneario.registrar_cliente(nom,dni_cliente,sexo_cliente.strip(),numero_cliente,tarjeta) 
+                    if continuar!=True:
+                        seguir_cliente=input("Desea volver a intentarlo? (ENTER para continuar, cualquier tecla para salir)")
+                    else:
+                        print("El cliente fue registrado.")
+                        dni_trabajado=int(dni_cliente)
+                        break
+                    if seguir_cliente!="":
+                        break        
 
             #OPCIÓN DE: CLIENTE ESTÁ REGISTRADO --> LO VALIDO
             elif registrado.lower().strip()=="s":
-                dni_cliente=input("Ingrese el DNI del cliente: ")
-                if dni_cliente.isdigit():
-                    if balneario.validar_cliente(dni_cliente.strip()):
-                        continuar=True
-                        dni_trabajado=int(dni_cliente)
+                continuar=False
+                while continuar==False:
+                    dni_cliente=input("Ingrese el DNI del cliente: ")
+                    if dni_cliente.isdigit():
+                        continuar=balneario.validar_cliente(dni_cliente.strip())
+                        if continuar==False:
+                            decision_cliente=input("El cliente no se encuentra registrado, desea volver a intentarlo? (ENTER para continuar, cualquier otra tecla para cancelar)")
                     else:
+                        decision_cliente=input("El DNI ingresado no cumple con el formato requerido, quiere volver a intentarlo? (ENTER para continuar, cualquier otra tecla para cancelar)")
+                    if decision_cliente!="":
                         continuar=False
-                        print("El cliente no se encuentra registrado, hágalo ingresando la opción en el menú.")
-                else:
-                    continuar=False
-                    print("El DNI ingresado no tiene un formato correcto.")
+                        break
+                if continuar==True:
+                    dni_trabajado=int(dni_cliente)
 
             else:
                 continuar=False
@@ -203,23 +224,20 @@ if validar==True:
 
         elif choice=="3":
             recorrer_diccionario(balneario.dicclientes)
-                        
-        elif choice=="4":
-            recorrer_diccionario(balneario.dicemp)
 
-        elif choice=="5":
-            balneario.ver_matriz("s")
-                        
-        elif choice=="6":
-            balneario.ver_matriz("c")
-                        
-        elif choice=="7":
+        elif choice=="4":
             print("Los DNI de los clientes deudores son los siguientes: \n")
             for cliente in balneario.dicclientes.keys():
                 if balneario.dicclientes[cliente].deuda!=0:
                     print(str(cliente)+". Deuda: "+"$"+ str(balneario.dicclientes[cliente].deuda))
-                    
                         
+        elif choice=="5":
+            balneario.ver_matriz("c")
+
+        elif choice=="6":
+            balneario.ver_matriz("s")
+
+
         decision=input("¿Desea continuar? (presione ENTER para continuar, y cualquier otra tecla para salir): ")
         if decision!="":
             break

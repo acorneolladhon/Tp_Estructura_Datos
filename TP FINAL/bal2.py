@@ -49,27 +49,27 @@ class Balneario():
         except FileNotFoundError:
             print("Error! El arcvhivo no se encontró.")
 
-#carga y crea al emp (solo corrobora que no esté registrado ya)
+#carga y crea al emp (corrobora que no esté registrado ya) #LEVANTA ERROR SI NO ESTÁ REGISTRADO
     def cargar_empleado(self, nom_cargado, dni_cargado, sexo_cargado):
-        try:
-            if int(dni_cargado) not in self.dicemp.keys():    
-                emp=Empleado(nom_cargado, dni_cargado, sexo_cargado)
-                self.dicemp[int(dni_cargado)]=emp
-                self.dicusuarios[emp.codemp]=emp.contra
-            else:
-                raise ValueError("Ese empleado ya fue cargado.")
-        except ValueError as e:
-            print("Error!", e, "El empleado no fue cargado.")
+        if int(dni_cargado) not in self.dicemp.keys():    
+            emp=Empleado(nom_cargado, dni_cargado, sexo_cargado)
+            self.dicemp[int(dni_cargado)]=emp
+            self.dicusuarios[emp.codemp]=emp.contra
+        else:
+            raise ValueError("Ese empleado ya fue cargado.")
 
 #crea y registra al cliente
     def registrar_cliente(self, nombre_pedido, dni_pedido, sexo_pedido, numtel, numtarjeta):
         try:
-            if int(dni_pedido) not in self.dicclientes.keys():
-                cl=Cliente(nombre_pedido,dni_pedido,sexo_pedido,numtel, numtarjeta)
-                self.dicclientes[int(dni_pedido)]=cl
-                return True
+            if (dni_pedido.isdigit()):
+                if int(dni_pedido) not in self.dicclientes.keys():
+                    cl=Cliente(nombre_pedido,dni_pedido,sexo_pedido,numtel, numtarjeta)
+                    self.dicclientes[int(dni_pedido)]=cl
+                    return True
+                else:
+                    raise ValueError("Ese cliente ya se encuentra registrado.")
             else:
-                raise ValueError("Ese cliente ya se encuentra registrado.")
+                raise ValueError("El DNI ingresado no cumple con el formato requerido.")
         except ValueError as e:
             print("Error !", e, "El cliente no fue registrado.")
             return False
