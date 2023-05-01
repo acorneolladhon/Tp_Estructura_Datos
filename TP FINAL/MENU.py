@@ -51,14 +51,47 @@ if validar==True:
 
         if choice=="8":
             break
+        #OPCION DEL EMPLEADO --> REGISTAR O ELIMINAR DEL SISTEMA (NO TRABAJA MAS)
         elif choice=="1":
-            nombre=input("Ingrese el nombre del empleado: ")
-            dni_ingreso=input("Ingrese el DNI del empleado: ")
-            sex=input("Ingrese el sexo del empleado (M o F): ")
-            try:
-                registro=balneario.cargar_empleado(nombre,dni_ingreso,sex)
-            except ValueError as e:
-                print("Error!", e)
+            choice1=input("""Qué quiere hacer?
+                        1-Registar nuevo empleado
+                        2-Eliminar empleado
+                        3-Salir
+                        Opción: """)
+            
+            if choice1=="1":
+                nombre=input("Ingrese el nombre del empleado: ")
+                dni_ingreso=input("Ingrese el DNI del empleado: ")
+                sex=input("Ingrese el sexo del empleado (M o F): ")
+                try:
+                    registro=balneario.cargar_empleado(nombre,dni_ingreso,sex)
+                except ValueError as e:
+                    print("Error!", e)
+
+        #funciona mal 
+            # elif choice1=="2":
+            #     cod_empleado=input("Ingrese el codigo del empleado: ")
+            #     if cod_empleado.isdigit():
+            #         if balneario.cargar_empleado(cod_empleado.strip()):
+            #             continuar=True
+            #             cod_trabajado=int(cod_empleado)
+            #         else:
+            #             continuar=False
+            #             print("El empleado no se encuentra registrado, hágalo ingresando la opción en el menú.")
+            #     else:
+            #         continuar=False
+            #         print("El codigo ingresado no tiene un formato correcto.")
+                
+
+            elif choice1=="3":
+                break #me saca del programa, no es que me devuelve al menu principal 
+                        
+            else:
+                print("La elección no era una opción.")
+        
+            finalización=input("Desea hacer algo más con este empleado? (ENTER para continuar, cualquier tecla para salir): ")
+            if finalización!="":
+                break
 
         elif choice=="2":
             registrado=input("¿El cliente ya está registrado en el sistema?(s o n): ")
