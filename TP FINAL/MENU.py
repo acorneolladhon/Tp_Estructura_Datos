@@ -1,6 +1,6 @@
 from bal2 import *
 import pickle
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 def recorrer_diccionario(diccionario):
     for key in diccionario.keys():
@@ -126,8 +126,8 @@ if validar==True:
                             decision_cliente=input("El cliente no se encuentra registrado, desea volver a intentarlo? (ENTER para continuar, cualquier otra tecla para cancelar)")
                     else:
                         decision_cliente=input("El DNI ingresado no cumple con el formato requerido, quiere volver a intentarlo? (ENTER para continuar, cualquier otra tecla para cancelar)")
-                    if decision_cliente!="":
-                        continuar=False
+                        if decision_cliente!="":
+                            continuar=False
                         break
                 if continuar==True:
                     dni_trabajado=int(dni_cliente)

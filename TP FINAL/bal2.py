@@ -121,7 +121,7 @@ class Balneario():
             for columna in range(len(matriz[fila])):
                 reser=matriz[fila][columna]
                 if reser.estado==None:
-                    lista.append(0)
+                    lista.append("D")
                 else:
                     lista.append((reser.estado.vencimiento-datetime.datetime.now()).days)
             print(lista)
