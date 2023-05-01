@@ -54,7 +54,7 @@ class Balneario():
         try:
             if int(dni_cargado) not in self.dicemp.keys():    
                 emp=Empleado(nom_cargado, dni_cargado, sexo_cargado)
-                self.dicemp[dni_cargado]=emp
+                self.dicemp[int(dni_cargado)]=emp
                 self.dicusuarios[emp.codemp]=emp.contra
             else:
                 raise ValueError("Ese empleado ya fue cargado.")
@@ -226,21 +226,33 @@ class Balneario():
         else:
             raise KeyError("El cliente no se encuentra registrado.")            
 
-    def eliminar_empleado():
-        pass
+    def eliminar_empleado(self,dni_recibido):
+        if dni_recibido.isdigit():
+            if int(dni_recibido) in self.dicemp.keys():
+                emp_eliminado=self.dicemp.pop(int(dni_recibido))
+                return emp_eliminado
+            else:
+                raise ValueError("El DNI ingresado no se encuentra registrado.")
+        else:
+            raise ValueError("El DNI ingresado no cumple con el formato requerido.")
 
     def modificar_carpa():
         pass
 
        
 
-#if __name__=="__main__":
-    #balneario=Balneario("Balneario Carilo")
+if __name__=="__main__":
+    balneario=Balneario("Balneario Carilo")
 
     #balneario=bal.leer_archivos("archivobalneario.pkl")
     #balneario.crear_backup_contraseñas()
     #balneario.registrar_cliente("Juan Quiroga", "22222222","m","1138338366","1231231231231231")
-    #balneario.cargar_empleado("Josefina Marta", "22278723", "F")
+    balneario.cargar_empleado("Josefina Marta", "22278723", "F")
+    for i in balneario.dicemp.keys():
+        print(balneario.dicemp[i])
+    print("El empleado eliminado es:",balneario.eliminar_empleado("22278723"))
+    for i in balneario.dicemp.keys():
+        print(balneario.dicemp[i])
     #balneario.cargar_archivos()
     #balneario.crear_backup_contraseñas()
     # for i in balneario.dicclientes.keys():

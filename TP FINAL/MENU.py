@@ -46,24 +46,43 @@ if validar==True:
                 5- Visualizar disponibilidad de sombrillas
                 6- Visualizar disponibilidad de carpas
                 7- Ver clientes adeudados
-                8- Salir
+                8- Eliminar un empleado
+                9- Salir
                 Opción: """)
 
-        if choice=="8":
+        if choice=="9":
             break
+
         elif choice=="1":
-            nombre=input("Ingrese el nombre del empleado: ")
-            dni_ingreso=input("Ingrese el DNI del empleado: ")
-            sex=input("Ingrese el sexo del empleado (M o F): ")
-            try:
-                registro=balneario.cargar_empleado(nombre,dni_ingreso,sex)
-            except ValueError as e:
-                print("Error!", e)
+            choice_empleado=input("""¿Qué desea hacer?
+            1-Registrar un nuevo empleado
+            2-Eliminar un empleado
+            Opción: """)
+            if choice_empleado=="1":
+                registrar_empleado=True
+                while registrar_empleado==True:
+                    nombre=input("Ingrese el nombre del empleado: ")
+                    dni_ingreso=input("Ingrese el DNI del empleado: ")
+                    sex=input("Ingrese el sexo del empleado (M o F): ")
+                    try:
+                        registro=balneario.cargar_empleado(nombre,dni_ingreso,sex)
+                        break
+                    except ValueError as e:
+                        print("Error!", e)
+            elif choice_empleado=="2":
+                dni_empleado=input("Ingrese el DNI del empleado a eliminar de los registros: ")
+                try:
+                    print("El empleado eliminado es: ", balneario.eliminar_empleado(dni_empleado))
+                except ValueError as e:
+                    print("Error!!", e)
+            
+            else:
+                print("La opción ingresada no es válida.")
+
 
         elif choice=="2":
             registrado=input("¿El cliente ya está registrado en el sistema?(s o n): ")
 
-            #HACER UN WHILE
             #OPCIÓN DE: CLIENTE NO ESTÁ REGISTRADO --> LO REGISTRO
             if registrado.lower().strip()=="n":
                 print("Registre al cliente:\n")
@@ -73,7 +92,6 @@ if validar==True:
                 numero_cliente=input("Ingrese el número de teléfono del cliente (10 dígitos): ")
                 tarjeta=input("Ingrese el número de tarjeta del cliente (16 dígitos): ")
                 factor=balneario.registrar_cliente(nom,dni_cliente,sexo_cliente.strip(),numero_cliente,tarjeta)
-                #CHEQUEAR ACA
                 seguir=lambda x: True if x==True else False
                 continuar=seguir(factor)
                 if continuar!=False:
@@ -128,6 +146,7 @@ if validar==True:
                                             try:
                                                 precio_dia=lambda tipo_reserva:cotizacioncarpa if tipo_reserva.lower().strip()=="c" else cotizacionsombrilla
                                                 precio=precio_dia(tipo_reserva)
+                                                print(precio)
                                                 reserva_realizada=balneario.asignar_reserva(tipo_reserva,metodo_eleccion,int(dias), int(dni_trabajado),precio,fila_requerida)
                                                 balneario.ver_matriz(tipo_reserva)
                                             except ValueError as e:
@@ -198,7 +217,8 @@ if validar==True:
             for cliente in balneario.dicclientes.keys():
                 if balneario.dicclientes[cliente].deuda!=0:
                     print(str(cliente)+". Deuda: "+"$"+ str(balneario.dicclientes[cliente].deuda))
-                                
+                    
+                        
         decision=input("¿Desea continuar? (presione ENTER para continuar, y cualquier otra tecla para salir): ")
         if decision!="":
             break

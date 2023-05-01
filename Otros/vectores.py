@@ -46,5 +46,37 @@ print(vecnuevo)
 #si el index no encuentra el valor devuelve error
 vec1.index(3)
 print(vec1)
+
+#el pop borra el que elemento que está en la posición que le digo
 vec1.pop(vec1.index(3))
 print(vec1)
+#si no le paso un index al pop, elimina el último
+
+vec1.remove(4)
+print(vec1)
+
+#si le pido a remove que elimine un valor que no existe, SALTA ERROR
+#vec1.remove(9)
+
+print(vector)
+#vect=vector.reverse()   --> ESTO NO FUNCIONA, CUANDO YO INVIERTO EL VECTOR EN CUALQUIER LADO, YA QUEDA REVERTIDO EN TODOS LADOS
+#vector.reverse()  #no lo puedo PONER EN UNA VARIANBLE, YA DIRECTAMENTE LO CAMBIA
+#print(vect)
+print(vector)
+
+hola=sorted(vector)
+print(hola)   #el sorted es BUILT IN, se aplica como el len y la funcion normal
+#en este caso, no se altera el vector en sí, el vector sigue siendo el original, solo que
+# en una variable guardaste ese mismo vector ordenado
+print(vector)
+
+
+#CONVERTIR UN VECTOR EN UNA LISTA
+#listanueva=vector.tolist()
+listanueva=vector.tolist()
+print(listanueva)
+
+#la lista no se va a crear acá, porque en la ejecución no va a mutar el vector, tenes que guar
+# darlo en una variabble para crearlo 
+# vector.tolist()
+# print(vector)
