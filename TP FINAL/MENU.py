@@ -68,20 +68,20 @@ if validar==True:
                 except ValueError as e:
                     print("Error!", e)
 
-        #funciona mal 
-            # elif choice1=="2":
-            #     cod_empleado=input("Ingrese el codigo del empleado: ")
-            #     if cod_empleado.isdigit():
-            #         if balneario.cargar_empleado(cod_empleado.strip()):
-            #             continuar=True
-            #             cod_trabajado=int(cod_empleado)
-            #         else:
-            #             continuar=False
-            #             print("El empleado no se encuentra registrado, hágalo ingresando la opción en el menú.")
-            #     else:
-            #         continuar=False
-            #         print("El codigo ingresado no tiene un formato correcto.")
-                
+        #funciona mal, tira un error
+            elif choice1=="2":
+                cod_empleado=input("Ingrese el codigo del empleado: ")
+                if cod_empleado.isdigit():
+                #     if balneario.cargar_empleado(cod_empleado.strip()):
+                #         continuar=True
+                #         cod_trabajado=int(cod_empleado)
+                #     else:
+                #         continuar=False
+                #         print("El empleado no se encuentra registrado, hágalo ingresando la opción en el menú.")
+                # else:
+                #     continuar=False
+                #     print("El codigo ingresado no tiene un formato correcto.")
+                    pass
 
             elif choice1=="3":
                 break #me saca del programa, no es que me devuelve al menu principal 
