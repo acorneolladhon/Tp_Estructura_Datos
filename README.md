@@ -32,6 +32,8 @@ Balneario
 - Estaria bueno que la carpa/sombrilla se acuerde quien es el dueño, asi en caso de que alguien necesite info de quien es la reserva podes fijarte ahi.
 
 - Podrian generar tickets para la persona una vez que paga
+
+- Si sombrilla y carpa tienen los mismos atributos podrian usar herencia. Si van a ser exactamente lo mismo no hace falta crear dos objetos diferentes.
   
 ### Cosas viejas
 
