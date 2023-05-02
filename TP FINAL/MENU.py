@@ -154,7 +154,7 @@ if validar==True:
                         2-Modificar estadía
                         3-Cobrar
                         4-Modificar datos
-                        4-Salir
+                        5-Salir
                         Opción: """)
 
                         if choice2=="1":
@@ -265,7 +265,7 @@ if validar==True:
                         else:
                             print("La elección no era una opción.")
         
-                        finalización=input("Desea hacer algo más con este cliente? (ENTER para continuar, cualquier tecla para salir): ")
+                        finalización=input("Desea hacer algo más con este cliente? (ENTER para continuar, cualquier tecla para volver al menu principal): ")
                         if finalización!="":
                             break
 
@@ -285,7 +285,7 @@ if validar==True:
             balneario.ver_matriz("s")
 
 
-        decision=input("¿Desea continuar? (presione ENTER para continuar, y cualquier otra tecla para salir): ")
+        decision=input("¿Desea continuar? (presione ENTER para continuar, y cualquier otra tecla para salir del programa): ")
         if decision!="":
             break
 
