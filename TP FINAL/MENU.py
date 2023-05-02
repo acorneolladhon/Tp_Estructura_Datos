@@ -177,7 +177,7 @@ if validar==True:
                                             try:
                                                 precio_dia=lambda tipo_reserva:cotizacioncarpa if tipo_reserva.lower().strip()=="c" else cotizacionsombrilla
                                                 precio=precio_dia(tipo_reserva)
-                                                print(precio)
+                                                print("El precio de cotizacion es: ", precio)
                                                 reserva_realizada=balneario.asignar_reserva(tipo_reserva,metodo_eleccion,int(dias), int(dni_trabajado),precio,fila_requerida)
                                                 balneario.ver_matriz(tipo_reserva)
                                             except ValueError as e:
