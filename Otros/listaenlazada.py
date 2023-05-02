@@ -13,7 +13,7 @@ class Listaenlazada():
             devolver=""
             nodo_recorro=self.head
             while nodo_recorro!=None:
-                devolver+=str(nodo_recorro)+" "
+                devolver+=str(nodo_recorro)+"\t"
                 nodo_recorro=nodo_recorro.prox
             return devolver
 
@@ -26,6 +26,7 @@ class Listaenlazada():
             self.head=nodo
         self.len+=1
 
+#EL APPEND TIENE QUE RECIBIR UN VALOR EN FORMATO NODO
 #agrega un valor al final de la lista (un append de lista normal)  
     def append(self, nodo:Nodo):
         if self.len==0:
@@ -127,7 +128,7 @@ class Listaenlazada():
                 for n in range(posicion-1):
                     nodo_recorro=nodo_recorro.prox
                 nodo_eliminado=nodo_recorro.prox
-                nodo_recorro=nodo_recorro.prox.prox
+                nodo_recorro.prox=nodo_recorro.prox.prox
             else:
                 nodo_eliminado=self.head
                 self.head=self.head.prox
@@ -136,8 +137,28 @@ class Listaenlazada():
         else:
             raise Exception("El índice indicado excede el largo de la lista.")
 
+#cambiar la cabeza de la lista, que arranque desde el segundo nodo
+    def comenzar_segundo_nodo(self):
+        if self.head is not None and self.head.prox is not None:
+            self.head=self.head.prox
 
-    def buscar_caracteristicaobjeto(self, dato_buscado): #ejemplo--> mirar si ya está un dni
+#FUNCIONES CON LISTAS ENLAZADAS DE OBJETOS
+
+#le ingresás el dato q buscas, encuentra su posicion (en este caso dni, pero se puede acceder a la característica)
+    def buscar_posicion__dato_objeto(self, dato_buscado):
+            nodo_recorro=self.head
+            recorrido=0
+            posicion=None
+            while nodo_recorro!=None:
+                if nodo_recorro.dato.dni==dato_buscado:
+                    posicion=recorrido
+                    break
+                nodo_recorro=nodo_recorro.prox
+                recorrido+=1    
+            return posicion
+
+#recorre lista de objetos y accede a la característica de un objeto
+    def buscar_caracteristicaobjeto(self,dato_buscado): #ejemplo--> mirar si ya está un dni
         nodo_recorro=self.head
         encontrado=False
         while nodo_recorro!=None:
@@ -146,6 +167,23 @@ class Listaenlazada():
                 break
             nodo_recorro=nodo_recorro.prox   
         return encontrado
+
+#recorre una lista enlazada de objetos y devuelve una lista con los valores de los objetos pedidos (lista de dnis)
+    def recorrer_levantar_datos(self):
+        nodo_recorrido=self.head
+        lista_datos=[]
+        while nodo_recorrido!=None:
+            lista_datos.append(nodo_recorrido.dato.dni)
+            nodo_recorrido=nodo_recorrido.prox
+        return lista_datos
+
+#modificar un valor una vez que lo encuentra (pero accediendo a una característica particular, acá el DNI)
+    def modificar_dato_objeto(self, dato_buscado, nuevo_valor):
+        nodo_recorro=self.head
+        while nodo_recorro!=None:
+            if nodo_recorro.dato.dni==dato_buscado:
+                nodo_recorro.dato.dni=nuevo_valor
+            nodo_recorro=nodo_recorro.prox
 
 if __name__=="__main__":
     # #print("Imprimo lista instanciada, no tiene elementos todavía:")

@@ -58,7 +58,8 @@ if validar==True:
                 1-Registrar un nuevo empleado
                 2-Eliminar un empleado
                 3-Visualizar empleados
-                4-Volver al menú principal
+                4-Cambiar contraseña de empleado
+                5-Volver al menú principal
                 Opción: """)
                 if choice_empleado=="1":
                     registrar_empleado=""
@@ -84,8 +85,15 @@ if validar==True:
                 
                 elif choice_empleado=="3":
                     recorrer_diccionario(balneario.dicemp)
-                
+
                 elif choice_empleado=="4":
+                    dni_cambio=input("Ingrese el DNI del empleado que desea cambiar su contraseña: ")
+                    try:
+                        balneario.cambiar_contraseña(dni_cambio)
+                    except ValueError as e:
+                        print("Error!!", e)
+
+                elif choice_empleado=="5":
                     break
 
                 else:
@@ -122,6 +130,7 @@ if validar==True:
                     dni_cliente=input("Ingrese el DNI del cliente: ")
                     if dni_cliente.isdigit():
                         continuar=balneario.validar_cliente(dni_cliente.strip())
+                        decision_cliente=""
                         if continuar==False:
                             decision_cliente=input("El cliente no se encuentra registrado, desea volver a intentarlo? (ENTER para continuar, cualquier otra tecla para cancelar)")
                     else:
@@ -144,6 +153,7 @@ if validar==True:
                         1-Asignar reserva
                         2-Modificar estadía
                         3-Cobrar
+                        4-Modificar datos
                         4-Salir
                         Opción: """)
 
@@ -212,9 +222,46 @@ if validar==True:
                                 print("Error!", e)
                             except KeyError as e:
                                 print("Error!", e)
-                        elif choice2=="4":
-                            break
                         
+                        elif choice2=="4":
+                            seguir=True
+                            while seguir==True:
+                                modificacion=input("""Qué desea modificar?
+                                1-NOMBRE
+                                2-SEXO
+                                3-NÚMERO CELULAR
+                                4-NÚMERO DE TARJETA
+                                5-SALIR
+                                Opción: """)
+                                while modificacion not in ["1","2","3","4","5"]:
+                                    modificacion=input("La opción ingresada no es válida, ingrese otra: ")
+                                    if modificacion=="5":
+                                        seguir=False
+                                        break
+                                else:
+                                    if modificacion!="5":
+                                        seguir_modificando=""
+                                        while seguir_modificando =="":
+                                            nuevodato=input("Ingrese nuevo dato: ")
+                                            try:
+                                                modificado=balneario.modificar_datos_cliente(dni_trabajado,nuevodato,modificacion)
+                                                break
+                                            except ValueError as e:
+                                                print("Error!!",e)
+                                                decision=input("Desea volver a ingresar el dato? (presione ENTER, si no, cualquier tecla para salir)")
+                                                if decision!="":
+                                                    seguir_modificando="no"
+                                        continuar=input("Desea modificar otro dato? (ENTER para seguir, otra tecla para terminar)")
+                                        if continuar!="":
+                                            seguir=False
+                                    else:
+                                        seguir=False
+                                        break
+
+
+                        elif choice2=="5":
+                            break
+
                         else:
                             print("La elección no era una opción.")
         
