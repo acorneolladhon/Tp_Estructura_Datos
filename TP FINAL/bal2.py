@@ -121,7 +121,7 @@ class Balneario():
             for columna in range(len(matriz[fila])):
                 reser=matriz[fila][columna]
                 if reser.estado==None:
-                    lista.append(0)
+                    lista.append("D")
                 else:
                     lista.append((reser.estado.vencimiento-datetime.datetime.now()).days)
             print(lista)
@@ -158,7 +158,8 @@ class Balneario():
             return precio
         else:
             raise ValueError("El precio ingresado no cumple con el formato requerido.")
-        
+
+#le pasás el precio, el dni, el número de días, la fila que eligió(si eligió), y hace la reserva     
     def asignar_reserva(self,tipo_reserva,metodo, dias, dni_cliente,cotizacion_dia,fila_elegida=None):
         if str(dni_cliente).isdigit():
             if dni_cliente not in self.reservas_vigentes.keys():
@@ -226,6 +227,7 @@ class Balneario():
         else:
             raise KeyError("El cliente no se encuentra registrado.")            
 
+#elimina al empleado que se pida desde el menú (el DNI que llega es un string)
     def eliminar_empleado(self,dni_recibido):
         if dni_recibido.isdigit():
             if int(dni_recibido) in self.dicemp.keys():
@@ -236,9 +238,53 @@ class Balneario():
         else:
             raise ValueError("El DNI ingresado no cumple con el formato requerido.")
 
-    def modificar_carpa():
-        pass
+#le pasás el tipo de dato que querés cambiar (números asociados a las opciones en el menú) y el valor cargado
+#corrobora la info que le llega, si lo cambia devuelve true y si no lo cambia False
+    def modificar_datos_cliente(self,dni_cliente,nuevo_dato,tipo_dato):
+        if int(dni_cliente) in self.dicclientes.keys():
+            if tipo_dato=="1":
+                self.dicclientes[int(dni_cliente)].nombre=nuevo_dato
+                carga=True
+            elif tipo_dato=="2":
+                if nuevo_dato.lower().strip() not in ["f","m"]:
+                    carga=False
+                    raise ValueError("El sexo ingresado no es válido.")
+                self.dicclientes[int(dni_cliente)].sexo=nuevo_dato
+                carga=True
+            elif tipo_dato=="3":
+                if not(nuevo_dato.isdigit()) or len(nuevo_dato)!=10:
+                    carga=False
+                    raise ValueError("El número de teléfono ingresado no cumple con los requerimientos")
+                self.dicclientes[int(dni_cliente)].tel=nuevo_dato
+                carga=True
+            elif tipo_dato=="4":
+                if not(nuevo_dato.isdigit()) or len(nuevo_dato)!=16:
+                    carga=False
+                    raise ValueError("El número de tarjeta no cumple con el formato requerido.")
+                self.dicclientes[int(dni_cliente)].num_tarjeta=nuevo_dato
+                carga=True
+            else:
+                raise ValueError("La opción ingresada no es válida.")
+            return carga
+        else:
+            raise ValueError("Ese cliente no se encuentra registrado.")
 
+#para cambiar la contraseña del empleado
+    def cambiar_contraseña(self, dni_empleado):
+        if int(dni_empleado) not in self.dicemp.keys():
+            raise ValueError("El empleado no se encuentra registrado.")
+        else:
+            contraseña_antigua=input("Ingresar la contraseña anterior: ")
+            if self.dicemp[int(dni_empleado)].contra==contraseña_antigua:
+                contraseña_nueva=input("Ingresar la nueva contraseña (5 caracteres mínimo): ")
+                while len(contraseña_nueva)<5:
+                    contraseña_nueva=input("Contraseña inválida, vuelva a ingresarla (5 caracteres mínimo): ")
+                print("La nueva contraseña es: ", contraseña_nueva)
+                self.dicemp[int(dni_empleado)].contra=contraseña_nueva
+                self.dicusuarios[self.dicemp[int(dni_empleado)].codemp]=contraseña_nueva
+            else:
+                raise ValueError("La contraseña ingresada no coincide con la contraseña actual del empleado. No podrá modificarse.")
+                
        
 
 if __name__=="__main__":
